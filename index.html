@@ -22,105 +22,198 @@
             --border: #E3E0D9;
             --danger: #F24C4E;
         }
-        .container{max-width:1100px;margin:0 auto;padding:28px}
-        .header{background:var(--surface);padding:28px;border-radius:12px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 24px rgba(16,24,40,0.06)}
-        .header-logo{width:150px;height:auto}
+        .container{max-width:1400px;margin:0 auto;padding:20px}
+        .header{background:var(--surface);padding:24px;border-radius:12px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 24px rgba(16,24,40,0.06)}
+        .header-logo{width:120px;height:auto}
         .header-title{flex:1}
-        .h1{font-size:24px;color:var(--brand);margin:0;font-weight:800;letter-spacing:0.4px}
-        .h2{font-size:13px;color:var(--muted);margin-top:6px}
-        .card{background:var(--surface);padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(16,24,40,0.04);border:1px solid var(--border)}
-        .section-title{font-size:18px;color:var(--brand);margin-bottom:10px;font-weight:700}
+        .h1{font-size:22px;color:var(--brand);margin:0;font-weight:800;letter-spacing:0.4px}
+        .h2{font-size:12px;color:var(--muted);margin-top:4px}
+        .card{background:var(--surface);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(16,24,40,0.04);border:1px solid var(--border)}
+        .section-title{font-size:16px;color:var(--brand);margin-bottom:8px;font-weight:700}
         .table{width:100%;border-collapse:collapse;margin-top:12px}
         .table th{background:#f7f6f3;padding:10px;text-align:left;color:var(--muted);font-size:13px}
         .table td{padding:10px;border-top:1px solid var(--border)}
         @media (max-width:900px){
             .header{flex-direction:column;align-items:flex-start}
-            .header-logo{width:130px}
+            .header-logo{width:100px}
+            .h1{font-size:18px}
         }
         /* Fim dos Estilos do Boletim Agro Sul */
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg); /* Aplicar cor de fundo do Boletim */
-            color: var(--text); /* Aplicar cor de texto do Boletim */
+            background-color: var(--bg);
+            color: var(--text);
         }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
+        
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
             }
         }
-        .icon {
-            font-size: 1.5rem;
-            margin-right: 0.5rem;
+        
+        .kpi-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--brand);
+            box-shadow: 0 4px 12px rgba(16,24,40,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+        
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16,24,40,0.08);
+        }
+        
+        .kpi-label {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        
         .kpi-value {
-             color: var(--brand); /* Usar cor principal do Boletim */
+            font-size: 24px;
+            color: var(--brand);
+            font-weight: 800;
+            margin-bottom: 4px;
         }
+        
+        .kpi-unit {
+            font-size: 11px;
+            color: var(--muted);
+        }
+        
+        .kpi-trend {
+            font-size: 12px;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px solid var(--border);
+        }
+        
         .trend-up {
-            color: #4CAF50; /* Green */
+            color: #4CAF50;
         }
+        
         .trend-down {
-            color: var(--danger); /* Usar cor de perigo do Boletim */
+            color: var(--danger);
         }
+        
         .trend-stable {
-            color: #F7C548; /* Energetic Yellow */
+            color: #F7C548;
         }
-
-        /* Estilos para o Conteúdo da Análise (Markdown) */
+        
+        .podcast-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 6px 20px rgba(16,24,40,0.04);
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+        
+        .podcast-title {
+            font-size: 14px;
+            color: var(--brand);
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .podcast-player {
+            width: 100%;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+            padding: 12px;
+        }
+        
+        .podcast-player audio {
+            width: 100%;
+            height: 40px;
+        }
+        
+        audio::-webkit-media-controls-panel {
+            background-color: var(--surface);
+        }
+        
+        /* Estilos para o Conteúdo da Análise */
         .analysis-content h2 {
-            font-size: 1.75rem; /* 2xl */
-            font-weight: 700; /* bold */
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: var(--brand); /* Usar cor principal do Boletim */
-            border-bottom: 2px solid var(--accent); /* Usar cor de destaque do Boletim */
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 1.2rem;
+            margin-bottom: 0.6rem;
+            color: var(--brand);
+            border-bottom: 2px solid var(--accent);
             padding-bottom: 0.25rem;
         }
+        
         .analysis-content h3 {
-            font-size: 1.25rem; /* xl */
-            font-weight: 600; /* semi-bold */
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--brand); /* Usar cor principal do Boletim */
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 0.8rem;
+            margin-bottom: 0.4rem;
+            color: var(--brand);
         }
+        
         .analysis-content p, .analysis-content li {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             line-height: 1.6;
+            font-size: 14px;
         }
+        
         .analysis-content ul, .analysis-content ol {
             margin-left: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
+        
         .analysis-content ul {
             list-style-type: disc;
         }
+        
         .analysis-content ol {
             list-style-type: decimal;
         }
+        
         .analysis-content table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
+            font-size: 13px;
         }
+        
         .analysis-content th, .analysis-content td {
-            border: 1px solid var(--border); /* Usar cor de borda do Boletim */
+            border: 1px solid var(--border);
             padding: 8px;
             text-align: left;
         }
+        
         .analysis-content th {
-            background-color: #f7f6f3; /* Cor de fundo da tabela do Boletim */
+            background-color: #f7f6f3;
             font-weight: bold;
         }
-
+        
+        .sidebar-sticky {
+            position: sticky;
+            top: 20px;
+        }
+        
+        @media (max-width: 1024px) {
+            .sidebar-sticky {
+                position: static;
+            }
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -129,29 +222,40 @@
         <img src="logo.png" alt="Boletim Agro Sul - logo" class="header-logo" />
         <div class="header-title">
             <h1 class="h1">Análise Semanal do Agronegócio Brasileiro</h1>
-        <p class="h2">Atualizado em 09 de Novembro de 2025</p>
+            <p class="h2">Atualizado em 09 de Novembro de 2025</p>
         </div>
     </header>
 
-    <main class="container p-4 md:p-8">
+    <main class="container">
         <!-- Mensagem de Boas-Vindas e Propósito -->
-        <section class="mb-8 card p-6 border-l-4 border-l-[var(--accent)]">
-            <h2 class="text-xl font-bold text-[var(--brand)] mb-2">Bem-vindo(a) à Análise Semanal do Agronegócio Brasileiro!</h2>
-            <p class="text-gray-700">Esta página é sua fonte de informação atualizada sobre os principais movimentos do setor. Aqui você encontrará:</p>
-            <ul class="text-gray-700 space-y-2 mt-2">
-                <li class="flex items-center"><span class="icon">📝</span><span class="font-bold">Análise Completa:</span> O texto aprofundado sobre os desafios e oportunidades do agronegócio.</li>
-                <li class="flex items-center"><span class="icon">📊</span><span class="font-bold">Infográfico Visual:</span> Um resumo dinâmico com os dados e gráficos mais importantes da semana.</li>
-                <li class="flex items-center"><span class="icon">🎧</span><span class="font-bold">Resumo em Podcast:</span> A análise em áudio para você ouvir onde estiver.</li>
-            </ul>
-            <p class="text-base font-semibold text-[var(--danger)] mt-3">O conteúdo é atualizado toda segunda-feira.</p>
+        <section class="mb-6 card p-5 border-l-4 border-l-[var(--accent)]">
+            <h2 class="text-lg font-bold text-[var(--brand)] mb-2">Bem-vindo(a) à Análise Semanal do Agronegócio Brasileiro!</h2>
+            <p class="text-sm text-gray-700">Esta página é sua fonte de informação atualizada sobre os principais movimentos do setor. Aqui você encontrará análise completa, infográfico visual com KPIs e resumo em podcast.</p>
+            <p class="text-xs font-semibold text-[var(--danger)] mt-2">O conteúdo é atualizado toda segunda-feira.</p>
         </section>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-            <!-- Coluna Principal para a Análise (2/3 da largura em telas grandes) -->
-            <section id="analysis-section" class="lg:col-span-2 card p-6 analysis-content order-last lg:order-none">
+        <!-- Grid Principal: Análise + Sidebar de KPIs -->
+        <div class="main-grid">
+            
+            <!-- Coluna Principal para a Análise -->
+            <section id="analysis-section" class="card p-6 analysis-content">
+                
+                <!-- Podcast Player -->
+                <div class="podcast-section">
+                    <div class="podcast-title">
+                        🎧 Resumo em Podcast (7-8 min)
+                    </div>
+                    <div class="podcast-player">
+                        <audio controls>
+                            <source src="podcast_semanal.mp3" type="audio/mpeg">
+                            Seu navegador não suporta o elemento de áudio.
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Análise Completa -->
                 <h2 class="text-2xl font-bold mb-4 text-[var(--brand)]">Análise Completa</h2>
                 
-                <!-- Conteúdo da Análise (Markdown convertido para HTML) -->
                 <article>
                     <h2>1.0 Panorama Macroeconômico e Desempenho Exportador: A Tensão Entre Otimismo e Cautela</h2>
                     <p>O cenário para o agronegócio brasileiro em 2025 é definido por uma dualidade marcante: de um lado, projeções macroeconômicas robustas que sinalizam uma forte recuperação setorial; de outro, um ambiente operacional repleto de desafios financeiros, geopolíticos e de custos que exigem uma gestão de risco apurada. A análise desta semana aprofunda essa tensão, justapondo o otimismo dos indicadores de crescimento com as advertências de cautela emitidas por especialistas do setor, fornecendo uma visão equilibrada do complexo terreno que os produtores e executivos devem navegar. A aparente contradição entre as projeções de receita recorde e as advertências sobre margens espremidas sugere que o setor pode estar caminhando para um período de "prosperidade sem lucro".</p>
@@ -196,39 +300,64 @@
                         <li>Tendências de Preços de Fertilizantes: Monitorização contínua dos preços CFR para ureia, MAP e cloreto de potássio.</li>
                         <li>Liquidez do Mercado de Crédito: Quaisquer anúncios ou mudanças relacionadas ao Plano Safra.</li>
                     </ul>
-                    
-                    <h4>Referências citadas</h4>
-                    <ol>
-                        <li>Agro terá PIB de 5% e safra recorde em 2025; Kellen Severo analisa - YouTube, acessado em novembro 2, 2025, [https://www.youtube.com/watch?v=4yxqOpRTwz8](https://www.youtube.com/watch?v=4yxqOpRTwz8)</li>
-                        <li>Agronegócio Brasileiro em 2025: Crescimento, Inovação e Desafios para Produtores Rurais, acessado em novembro 2, 2025, [https://farmonaut.com/south-america/agronegocio-brasileiro-2025-crescimento-e-inovacao-impactantes](https://farmonaut.com/south-america/agronegocio-brasileiro-2025-crescimento-e-inovacao-impactantes)</li>
-                        <li>CNA estima aumento de 5% do PIB do agronegócio em 2025 - CNN Brasil, acessado em novembro 2, 2025, [https://www.cnnbrasil.com.br/economia/macroeconomia/cna-estima-aumento-de-5-do-pib-do-agronegocio-em-2025/](https://www.cnnbrasil.com.br/economia/macroeconomia/cna-estima-aumento-de-5-do-pib-do-agronegocio-em-2025/)</li>
-                        <li>24/03/2025 - Como uma alta na taxa de juros afeta o agro? | Hora H do Agro - YouTube, acessado em novembro 2, 2025, [https://www.youtube.com/watch?v=-FvkrazC28I](https://www.youtube.com/watch?v=-FvkrazC28I)</li>
-                        <li>Kellen Severo: Com juros em alta, agro começa proposta do Plano Safra - Dailymotion, acessado em novembro 2, 2025, [https://www.dailymotion.com/video/x9gdqvi](https://www.dailymotion.com/video/x9gdqvi)</li>
-                        <li>Jeferson Souza - Análise de Mercado (custos e produtividade) - YouTube, acessado em novembro 2, 2025, [https://www.youtube.com/watch?v=YwkGMWR25xM](https://www.youtube.com/watch?v=YwkGMWR25xM)</li>
-                        <li>Principais importadores do agro do Brasil em 2025, até agosto! - Farmnews, acessado em novembro 2, 2025, [https://www.farmnews.com.br/mercado/principais-importadores-do-agro-do-brasil-em-2025-ate-agosto/](https://www.farmnews.com.br/mercado/principais-importadores-do-agro-do-brasil-em-2025-ate-agosto/](https://www.farmnews.com.br/mercado/principais-importadores-do-agro-do-brasil-em-2025-ate-agosto/))</li>
-                        <li>Kellen Severo abre MilkShow 2025 com alerta sobre instabilidade global e oportunidades para o agro - Feed&Food, acessado em novembro 2, 2025, [https://feedfood.com.br/kellen-severo-abre-milkshow-2025-com-alerta-sobre-instabilidade-global-e-oportunidades-para-o-agro/](https://feedfood.com.br/kellen-severo-abre-milkshow-2025-com-alerta-sobre-instabilidade-global-e-oportunidades-para-o-agro/)</li>
-                        <li>Conab: Brasil semeou 34,4% da área prevista para soja 2025/26, acessado em novembro 2, 2025, [https://www.comprerural.com/conab-brasil-semeou-344-da-area-prevista-para-soja-2025-26/](https://www.comprerural.com/conab-brasil-semeou-344-da-area-prevista-para-soja-2025-26/)</li>
-                        <li>Plantio da safra de soja 2025/26 atinge 24%, aponta AgRural, acessado em novembro 2, 2025, [https://www.canalrural.com.br/agricultura/projeto-soja-brasil/plantio-da-safra-de-soja-2025-26-atinge-24-no-brasil-diz-agrural/](https://www.canalrural.com.br/agricultura/projeto-soja-brasil/plantio-da-safra-de-soja-2025-26-atinge-24-no-brasil-diz-agrural/)</li>
-                        <li>Soja: plantio da safra 2025/26 no Brasil é o terceiro mais rápido da história - AgRural, acessado em novembro 2, 2025, [https://agrural.com.br/soja-plantio-da-safra-2025-26-no-brasil-e-o-terceiro-mais-rapido-da-historia/](https://agrural.com.br/soja-plantio-da-safra-2025-26-no-brasil-e-o-terceiro-mais-rapido-da-historia/)</li>
-                        <li>GRÃOS - Portal Gov.br, acessado em novembro 2, 2025, [https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/safras/safra-de-graos/boletim-da-safra-de-graos/1o-levantamento-safra-2025-26/e-book\_boletim-de-safras-1o-levantamento\_2025.pdf](https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/safras/safra-de-graos/boletim-da-safra-de-graos/1o-levantamento-safra-2025-26/e-book_boletim-de-safras-1o-levantamento\_2025.pdf)</li>
-                        <li>Grãos/Deral: plantio de milho verão 2025/26 atinge 98% da área no ..., acessado em novembro 2, 2025, [https://www.broadcast.com.br/ultimas-noticias/graos-deral-plantio-de-milho-verao-2025-26-atinge-98-da-area-no-pr-soja-esta-68-semeada/](https://www.broadcast.com.br/ultimas-noticias/graos-deral-plantio-de-milho-verao-2025-26-atinge-98-da-area-no-pr-soja-esta-68-semeada/)</li>
-                        <li>Deral: plantio de milho verão 2025/26 atinge 98% da área no PR, acessado em novembro 2, 2025, [https://www.comprerural.com/deral-plantio-de-milho-verao-2025-26-atinge-98-da-area-no-pr/](https://www.comprerural.com/deral-plantio-de-milho-verao-2025-26-atinge-98-da-area-no-pr/)</li>
-                        <li>RS Safra 2025/26: soja avança lentamente - Revista Cultivar, acessado em novembro 2, 2025, [https://revistacultivar.com.br/noticias/rs-safra-2025-26-soja-avanca-lentamente](https://revistacultivar.com.br/noticias/rs-safra-2025-26-soja-avanca-lentamente)</li>
-                        <li>Emater/RS: colheita de trigo atinge 10% da área; plantio de milho está na fase final, acessado em novembro 2, 2025, [https://www.broadcast.com.br/ultimas-noticias/emater-rs-colheita-de-trigo-atinge-10-da-area-plantio-de-milho-esta-na-fase-final/](https://www.broadcast.com.br/ultimas-noticias/emater-rs-colheita-de-trigo-atinge-10-da-area-plantio-de-milho-esta-na-fase-final/)</li>
-                        <li>Inicia a colheita da cevada com bom rendimento e grãos de alta qualidade industrial, acessado em novembro 2, 2025, [https://www.agricultura.rs.gov.br/inicia-a-colheita-de-cevada-com-bom-rendimento-e-graos-de-alta-qualidade-industrial](https://www.agricultura.rs.gov.br/inicia-a-colheita-de-cevada-com-bom-rendimento-e-graos-de-alta-qualidade-industrial)</li>
-                        <li>Previsão do clima no Brasil em novembro de 2025 - Sou Agro, acessado em novembro 2, 2025, [https://souagro.net/noticia/2025/10/previsao-do-clima-no-brasil-em-novembro-de-2025/](https://souagro.net/noticia/2025/10/previsao-do-clima-no-brasil-em-novembro-de-2025/)</li>
-                        <li>Previsão do clima no Brasil em novembro de 2025 - Climatempo, acessado em novembro 2, 2025, [https://www.climatempo.com.br/noticia/primavera/previsao-do-clima-no-brasil-em-novembro-de-2025](https://www.climatempo.com.br/noticia/primavera/previsao-do-clima-no-brasil-em-novembro-de-2025)</li>
-                        <li>Novembro - Instituto Nacional de Meteorologia - INMET, acessado em novembro 2, 2025, [https://portal.inmet.gov.br/noticias/noticias?noticias=novembro](https://portal.inmet.gov.br/noticias/noticias?noticias=novembro)</li>
-                        <li>Novembro com previsão de chuva acima da média em regiões brasileiras, acessado em novembro 2, 2025, [https://www.montanhascapixabas.com.br/novembro-com-previsao-de-chuva-acima-da-media-em-regioes-brasileiras/](https://www.montanhascapixabas.com.br/novembro-com-previsao-de-chuva-acima-da-media-em-regioes-brasileiras/)</li>
-                        <li>Inmet divulga previsão com possíveis impactos nas culturas agrícolas em novembro, acessado em novembro 2, 2025, [https://afnews.com.br/inmet-divulga-previsao-com-possiveis-impactos-nas-culturas-agricolas-em-novembro/](https://afnews.com.br/inmet-divulga-previsao-com-possiveis-impactos-nas-culturas-agricolas-em-novembro/)</li>
-                        <li>Novembro: Como será o clima no Brasil?, acessado em novembro 2, 2025, [https://portal.inmet.gov.br/noticias/novembro-como-ser%C3%A1-o-clima-no-brasil-4](https://portal.inmet.gov.br/noticias/novembro-como-ser%C3%A1-o-clima-no-brasil-4)</li>
-                        <li>Safra 2025/26 terá custo mais alto - Agrolink, acessado em novembro 2, 2025, [https://www.agrolink.com.br/noticias/safra-2025-26-tera-custo-mais-alto\_503178.html](https://www.agrolink.com.br/noticias/safra-2025-26-tera-custo-mais-alto\_503178.html)</li>
-                        <li>Alta dos fertilizantes pressiona produtores na safra 2025/26 - Revista Cultivar, acessado em novembro 2, 2025, [https://revistacultivar.com.br/noticias/alta-dos-fertilizantes-pressiona-produtores-na-safra-2025-26](https://revistacultivar.com.br/noticias/alta-dos-fertilizantes-pressiona-produtores-na-safra-2025-26)</li>
-                        <li>Semanal de fertilizantes - 31/10/2025 - Portal de Relatórios - StoneX, acessado em novembro 2, 2025, [https://stonex.digital/cmdtyview/semanal-de-fertilizantes-2025-10-31](https://stonex.digital/cmdtyview/semanal-de-fertilizantes-2025-10-31)</li>
-                        <li>Mercado de defensivos agrícolas 2025: como será? - AgroReceita, acessado em novembro 2, 2025, [https://agroreceita.com.br/mercado-de-defensivos-agricolas-2025/](https://agroreceita.com.br/mercado-de-defensivos-agricolas-2025/)</li>
-                        <li>Área de soja tratada com defensivos cresce 12% com custo 4,3 ..., acessado em novembro 2, 2025, [https://agfeed.com.br/economia/area-de-soja-tratada-com-defensivos-cresce-12-com-custo-43-menor-em-2024-2025-aponta-kynetec/](https://agfeed.com.br/economia/area-de-soja-tratada-com-defensivos-cresce-12-com-custo-43-menor-em-2024-2025-aponta-kynetec/)</li>
-                        <li>Tendência de tecnologias antes da porteira para o agronegócio em 2026 - EEmovel Agro, acessado em novembro 2, 2025, [https://portal.eemovelagro.com.br/2025/10/24/tendencia-de-tecnologias-antes-da-porteira/](https://portal.eemovelagro.com.br/2025/10/24/tendencia-de-tecnologias-antes-da-porteira/)</li>
-                        <li>A longa recuperação do mercado de insumos. Vida normal só em 2025 - The AgriBiz, acessado em novembro 2, 2025, [https://www.theagribiz.com/antes-da-porteira/a-longa-recuperacao-do-mercado-de-insumos-vida-normal-so-em-2025/](https://www.theagribiz.com/antes-da-porteira/a-longa-recuperacao-do-mercado-de-insumos-vida-normal-so-em-2025/)</li>
-                    </ol>
                 </article>
             </section>
+
+            <!-- Sidebar de KPIs -->
+            <aside class="sidebar-sticky">
+                <h3 class="section-title mb-4">📊 KPIs da Semana</h3>
+                
+                <!-- KPI 1: Crise de Crédito -->
+                <div class="kpi-card">
+                    <div class="kpi-label">💰 Crise de Crédito</div>
+                    <div class="kpi-value">-15%</div>
+                    <div class="kpi-unit">Redução no acesso</div>
+                    <div class="kpi-trend trend-down">↓ Restrição severa</div>
+                </div>
+
+                <!-- KPI 2: Plantio de Soja -->
+                <div class="kpi-card">
+                    <div class="kpi-label">🌱 Plantio de Soja</div>
+                    <div class="kpi-value">34,4%</div>
+                    <div class="kpi-unit">Área semeada</div>
+                    <div class="kpi-trend trend-stable">⚠ Atrasado vs. média</div>
+                </div>
+
+                <!-- KPI 3: Fertilizantes -->
+                <div class="kpi-card">
+                    <div class="kpi-label">📈 Custo Fertilizantes</div>
+                    <div class="kpi-value">+22%</div>
+                    <div class="kpi-unit">Acima de 2024</div>
+                    <div class="kpi-trend trend-down">↑ Pressão de custos</div>
+                </div>
+
+                <!-- KPI 4: Mercado Defensivo -->
+                <div class="kpi-card">
+                    <div class="kpi-label">🛡️ Mercado Defensivo</div>
+                    <div class="kpi-value">+4,5%</div>
+                    <div class="kpi-unit">Crescimento esperado</div>
+                    <div class="kpi-trend trend-up">↑ Crescimento moderado</div>
+                </div>
+
+                <!-- KPI 5: Preços Regionais Soja -->
+                <div class="kpi-card">
+                    <div class="kpi-label">🌾 Preço Soja (RS/PR)</div>
+                    <div class="kpi-value">R$ 62,50</div>
+                    <div class="kpi-unit">Média regional</div>
+                    <div class="kpi-trend trend-stable">→ Estável</div>
+                </div>
+
+                <!-- KPI 6: PIB Agronegócio -->
+                <div class="kpi-card">
+                    <div class="kpi-label">📊 PIB Agronegócio 2025</div>
+                    <div class="kpi-value">+5%</div>
+                    <div class="kpi-unit">Crescimento projetado</div>
+                    <div class="kpi-trend trend-up">↑ Recuperação</div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+</body>
+</html>
+
