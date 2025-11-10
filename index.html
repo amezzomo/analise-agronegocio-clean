@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Semanal do Agronegócio Brasileiro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos do Boletim Agro Sul */
+        :root{
+            --bg: #F8F6F1;
+            --surface: #FFFFFF;
+            --brand: #1E3A29; /* verde institucional */
+            --brand-2: #47624F; /* secundario */
+            --text: #1E1E1E;
+            --muted: #5C5C5C;
+            --accent: #A8D8B9;
+            --border: #E3E0D9;
+            --danger: #F24C4E;
+        }
+        .container{max-width:1100px;margin:0 auto;padding:28px}
+        .header{background:var(--surface);padding:28px;border-radius:12px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 24px rgba(16,24,40,0.06)}
+        .header-logo{width:150px;height:auto}
+        .header-title{flex:1}
+        .h1{font-size:24px;color:var(--brand);margin:0;font-weight:800;letter-spacing:0.4px}
+        .h2{font-size:13px;color:var(--muted);margin-top:6px}
+        .card{background:var(--surface);padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(16,24,40,0.04);border:1px solid var(--border)}
+        .section-title{font-size:18px;color:var(--brand);margin-bottom:10px;font-weight:700}
+        .table{width:100%;border-collapse:collapse;margin-top:12px}
+        .table th{background:#f7f6f3;padding:10px;text-align:left;color:var(--muted);font-size:13px}
+        .table td{padding:10px;border-top:1px solid var(--border)}
+        @media (max-width:900px){
+            .header{flex-direction:column;align-items:flex-start}
+            .header-logo{width:130px}
+        }
+        /* Fim dos Estilos do Boletim Agro Sul */
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg); /* Aplicar cor de fundo do Boletim */
+            color: var(--text); /* Aplicar cor de texto do Boletim */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+        .kpi-value {
+             color: var(--brand); /* Usar cor principal do Boletim */
+        }
+        .trend-up {
+            color: #4CAF50; /* Green */
+        }
+        .trend-down {
+            color: var(--danger); /* Usar cor de perigo do Boletim */
+        }
+        .trend-stable {
+            color: #F7C548; /* Energetic Yellow */
+        }
+
+        /* Estilos para o Conteúdo da Análise (Markdown) */
+        .analysis-content h2 {
+            font-size: 1.75rem; /* 2xl */
+            font-weight: 700; /* bold */
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--brand); /* Usar cor principal do Boletim */
+            border-bottom: 2px solid var(--accent); /* Usar cor de destaque do Boletim */
+            padding-bottom: 0.25rem;
+        }
+        .analysis-content h3 {
+            font-size: 1.25rem; /* xl */
+            font-weight: 600; /* semi-bold */
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--brand); /* Usar cor principal do Boletim */
+        }
+        .analysis-content p, .analysis-content li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .analysis-content ul, .analysis-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .analysis-content ul {
+            list-style-type: disc;
+        }
+        .analysis-content ol {
+            list-style-type: decimal;
+        }
+        .analysis-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        .analysis-content th, .analysis-content td {
+            border: 1px solid var(--border); /* Usar cor de borda do Boletim */
+            padding: 8px;
+            text-align: left;
+        }
+        .analysis-content th {
+            background-color: #f7f6f3; /* Cor de fundo da tabela do Boletim */
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="header" role="banner">
+        <img src="logo.png" alt="Boletim Agro Sul - logo" class="header-logo" />
+        <div class="header-title">
+            <h1 class="h1">Análise Semanal do Agronegócio Brasileiro</h1>
+        <p class="h2">Atualizado em 09 de Novembro de 2025</p>
+        </div>
+    </header>
+
+    <main class="container p-4 md:p-8">
+        <!-- Mensagem de Boas-Vindas e Propósito -->
+        <section class="mb-8 card p-6 border-l-4 border-l-[var(--accent)]">
+            <h2 class="text-xl font-bold text-[var(--brand)] mb-2">Bem-vindo(a) à Análise Semanal do Agronegócio Brasileiro!</h2>
+            <p class="text-gray-700">Esta página é sua fonte de informação atualizada sobre os principais movimentos do setor. Aqui você encontrará:</p>
+            <ul class="text-gray-700 space-y-2 mt-2">
+                <li class="flex items-center"><span class="icon">📝</span><span class="font-bold">Análise Completa:</span> O texto aprofundado sobre os desafios e oportunidades do agronegócio.</li>
+                <li class="flex items-center"><span class="icon">📊</span><span class="font-bold">Infográfico Visual:</span> Um resumo dinâmico com os dados e gráficos mais importantes da semana.</li>
+                <li class="flex items-center"><span class="icon">🎧</span><span class="font-bold">Resumo em Podcast:</span> A análise em áudio para você ouvir onde estiver.</li>
+            </ul>
+            <p class="text-base font-semibold text-[var(--danger)] mt-3">O conteúdo é atualizado toda segunda-feira.</p>
+        </section>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Coluna Principal para a Análise (2/3 da largura em telas grandes) -->
+            <section id="analysis-section" class="lg:col-span-2 card p-6 analysis-content order-last lg:order-none">
+                <h2 class="text-2xl font-bold mb-4 text-[var(--brand)]">Análise Completa</h2>
+                
+                <!-- Conteúdo da Análise (Markdown convertido para HTML) -->
+                <article>
+                    <h2>1.0 Panorama Macroeconômico e Desempenho Exportador: A Tensão Entre Otimismo e Cautela</h2>
+                    <p>O cenário para o agronegócio brasileiro em 2025 é definido por uma dualidade marcante: de um lado, projeções macroeconômicas robustas que sinalizam uma forte recuperação setorial; de outro, um ambiente operacional repleto de desafios financeiros, geopolíticos e de custos que exigem uma gestão de risco apurada. A análise desta semana aprofunda essa tensão, justapondo o otimismo dos indicadores de crescimento com as advertências de cautela emitidas por especialistas do setor, fornecendo uma visão equilibrada do complexo terreno que os produtores e executivos devem navegar. A aparente contradição entre as projeções de receita recorde e as advertências sobre margens espremidas sugere que o setor pode estar caminhando para um período de "prosperidade sem lucro".</p>
+                    
+                    <h3>1.1 Projeções para 2025: A Recuperação do PIB do Agronegócio Diante de Desafios Conjunturais</h3>
+                    <p>A principal notícia que ancora as expectativas para o próximo ano é a projeção de um crescimento de 5% no Produto Interno Bruto (PIB) do agronegócio, segundo estimativas da Confederação da Agricultura e Pecuária do Brasil (CNA). Este número representa uma recuperação expressiva após a retração de 2,5% enfrentada em 2024, um ano marcado por quebras de safra nas culturas de soja e milho, que são pilares da produção nacional. O Valor Bruto da Produção (VBP) agropecuário deve crescer aproximadamente 7% em 2025, alcançando a marca de R$ 1,43 trilhão. No entanto, tanto a CNA quanto analistas de mercado alertam que este crescimento não ocorrerá em um vácuo. O cenário é desafiador e impõe riscos que podem moderar o otimismo inicial, como um ambiente externo complexo, incertezas na política fiscal doméstica, volatilidade cambial, pressões inflacionárias e a manutenção de uma taxa Selic elevada. Estes fatores convergem para encarecer o crédito rural e dificultar o planejamento financeiro dos produtores.</p>
+                    
+                    <h3>1.2 Balança Comercial: Desempenho Robusto das Exportações e a Dinâmica dos Mercados Internacionais</h3>
+                    <p>O desempenho exportador continua a ser um pilar de sustentação para o setor. Nos primeiros oito meses de 2025, as exportações do agronegócio brasileiro atingiram um recorde de US$ 111,69 bilhões. A China continua sendo o principal destino (35% da receita), mas o crescimento das compras chinesas foi modesto (1,3%). Em contraste, os Estados Unidos apresentaram um crescimento notável de 14,8% na receita acumulada, e a União Europeia registrou um crescimento sólido de 5,8%. O contexto geopolítico (tensões EUA/China, conflitos no Oriente Médio) adiciona outra camada de complexidade, elevando a volatilidade nos preços de insumos e fretes.</p>
+                    
+                    <hr>
+
+                    <h2>2.0 A Safra 2025/26 em Foco: Progresso do Plantio e Condições das Lavouras</h2>
+                    <p>A análise do avanço da safra 2025/26 revela um quadro de contrastes regionais significativos. O panorama nacional do plantio de soja na última semana de outubro indica um ritmo que, apesar do forte avanço semanal, está ligeiramente atrasado em relação às médias históricas (34,4% semeado vs. média de 42,5%). Essa desaceleração aumenta a vulnerabilidade da safra a eventos climáticos adversos em novembro. Para o milho verão, a situação é mais positiva, com 40% da área plantada, superando a média histórica.</p>
+                    
+                    <h3>2.1 Análise Regional Detalhada: Os Dois Extremos do Sul e o Avanço no Centro-Oeste</h3>
+                    <p>A heterogeneidade do avanço do plantio fica evidente na análise regional: Mato Grosso lidera com 72,7% de sua área de soja semeada. O Paraná está acelerado (68% da soja semeada e 98% do milho verão). Em forte contraste, o Rio Grande do Sul está preocupante, com apenas 5% da área de soja plantada. O lento progresso da soja no RS é atribuído a uma combinação de fatores: irregularidade das chuvas, restrições no acesso ao crédito rural e uma decisão estratégica de adiar a semeadura para mitigar os riscos de déficit hídrico. Essa divergência drástica aponta para uma temporada "bifurcada".</p>
+                    
+                    <h3>2.2 Outras Culturas de Relevância: Finalização da Safra de Inverno</h3>
+                    <p>A colheita das culturas de inverno avança em bom ritmo. No Paraná, a colheita de trigo atingiu 83% da área, e no Rio Grande do Sul, o tempo seco permitiu que a colheita avançasse para 27% da área, com produtividades dentro ou acima do esperado.</p>
+                    
+                    <hr>
+
+                    <h2>3.0 Fatores Críticos: Clima e Custos de Produção</h2>
+                    <p>A definição do sucesso da safra 2025/26 dependerá fundamentalmente da evolução do clima sob a influência do fenômeno La Niña e da gestão dos custos de produção, que se confirmam mais elevados.</p>
+                    
+                    <h3>3.1 Previsão Climática para Novembro: A Incerteza Gerada pelo La Niña</h3>
+                    <p>O La Niña está ativo. As previsões para novembro apresentam uma divergência crítica: a Climatempo aponta para chuvas acima da média no Centro-Oeste e Paraná, enquanto o INMET indica chuvas abaixo da média para o Sul, Sudeste e a maior parte do Centro-Oeste. Essa divergência entre duas fontes técnicas credíveis representa o maior risco operacional para o setor no curto prazo.</p>
+                    
+                    <h3>3.2 Custos de Produção: A Pressão Sobre a Margem</h3>
+                    <p>A safra 2025/26 terá um custo de produção mais elevado. A relação de troca entre soja e MAP atingiu o pior nível em 15 anos (44,5 sacas de soja para a compra de uma tonelada do insumo). O mercado de defensivos químicos deve apresentar um crescimento modesto (3% a 6%), mas o segmento de bioinsumos continua sua trajetória de crescimento exponencial (expansão de 13% para 2025). A combinação de custos elevados e crédito restrito cria uma "pressão estratégica" sobre o produtor, que pode ser forçado a tomar decisões agronômicas subótimas.</p>
+                    
+                    <hr>
+
+                    <h2>4.0 Síntese Estratégica e Perspectivas</h2>
+                    <p>A análise consolidada revela um agronegócio brasileiro posicionado sobre uma base de grande potencial produtivo, mas confrontado por um ambiente operacional de alto risco. A capacidade de navegar a incerteza climática e a severa pressão de custos definirá o resultado da safra 2025/26. Os principais riscos são a volatilidade climática, a compressão de margens e os gargalos logísticos. As principais oportunidades são a demanda global sólida, o câmbio competitivo e a adaptação tecnológica (bioinsumos).</p>
+                    
+                    <p><strong>Pontos de Monitoramento para as Próximas Semanas:</strong></p>
+                    <ul>
+                        <li>Distribuição das Chuvas: Acompanhamento diário e semanal dos padrões de precipitação.</li>
+                        <li>Progresso do Plantio no Sul: A capacidade do Rio Grande do Sul de acelerar e recuperar o atraso no plantio da soja.</li>
+                        <li>Tendências de Preços de Fertilizantes: Monitorização contínua dos preços CFR para ureia, MAP e cloreto de potássio.</li>
+                        <li>Liquidez do Mercado de Crédito: Quaisquer anúncios ou mudanças relacionadas ao Plano Safra.</li>
+                    </ul>
+                    
+                    <h4>Referências citadas</h4>
+                    <ol>
+                        <li>Agro terá PIB de 5% e safra recorde em 2025; Kellen Severo analisa - YouTube, acessado em novembro 2, 2025, [https://www.youtube.com/watch?v=4yxqOpRTwz8](https://www.youtube.com/watch?v=4yxqOpRTwz8)</li>
+                        <li>Agronegócio Brasileiro em 2025: Crescimento, Inovação e Desafios para Produtores Rurais, acessado em novembro 2, 2025, [https://farmonaut.com/south-america/agronegocio-brasileiro-2025-crescimento-e-inovacao-impactantes](https://farmonaut.com/south-america/agronegocio-brasileiro-2025-crescimento-e-inovacao-impactantes)</li>
+                        <li>CNA estima aumento de 5% do PIB do agronegócio em 2025 - CNN Brasil, acessado em novembro 2, 2025, [https://www.cnnbrasil.com.br/economia/macroeconomia/cna-estima-aumento-de-5-do-pib-do-agronegocio-em-2025/](https://www.cnnbrasil.com.br/economia/macroeconomia/cna-estima-aumento-de-5-do-pib-do-agronegocio-em-2025/)</li>
+                        <li>24/03/2025 - Como uma alta na taxa de juros afeta o agro? | Hora H do Agro - YouTube, acessado em novembro 2, 2025, [https://www.youtube.com/watch?v=-FvkrazC28I](https://www.youtube.com/watch?v=-FvkrazC28I)</li>
+                        <li>Kellen Severo: Com juros em alta, agro começa proposta do Plano Safra - Dailymotion, acessado em novembro 2, 2025, [https://www.dailymotion.com/video/x9gdqvi](https://www.dailymotion.com/video/x9gdqvi)</li>
+                        <li>Jeferson Souza - Análise de Mercado (custos e produtividade) - YouTube, acessado em novembro 2, 2025, [https://www.youtube.com/watch?v=YwkGMWR25xM](https://www.youtube.com/watch?v=YwkGMWR25xM)</li>
+                        <li>Principais importadores do agro do Brasil em 2025, até agosto! - Farmnews, acessado em novembro 2, 2025, [https://www.farmnews.com.br/mercado/principais-importadores-do-agro-do-brasil-em-2025-ate-agosto/](https://www.farmnews.com.br/mercado/principais-importadores-do-agro-do-brasil-em-2025-ate-agosto/](https://www.farmnews.com.br/mercado/principais-importadores-do-agro-do-brasil-em-2025-ate-agosto/))</li>
+                        <li>Kellen Severo abre MilkShow 2025 com alerta sobre instabilidade global e oportunidades para o agro - Feed&Food, acessado em novembro 2, 2025, [https://feedfood.com.br/kellen-severo-abre-milkshow-2025-com-alerta-sobre-instabilidade-global-e-oportunidades-para-o-agro/](https://feedfood.com.br/kellen-severo-abre-milkshow-2025-com-alerta-sobre-instabilidade-global-e-oportunidades-para-o-agro/)</li>
+                        <li>Conab: Brasil semeou 34,4% da área prevista para soja 2025/26, acessado em novembro 2, 2025, [https://www.comprerural.com/conab-brasil-semeou-344-da-area-prevista-para-soja-2025-26/](https://www.comprerural.com/conab-brasil-semeou-344-da-area-prevista-para-soja-2025-26/)</li>
+                        <li>Plantio da safra de soja 2025/26 atinge 24%, aponta AgRural, acessado em novembro 2, 2025, [https://www.canalrural.com.br/agricultura/projeto-soja-brasil/plantio-da-safra-de-soja-2025-26-atinge-24-no-brasil-diz-agrural/](https://www.canalrural.com.br/agricultura/projeto-soja-brasil/plantio-da-safra-de-soja-2025-26-atinge-24-no-brasil-diz-agrural/)</li>
+                        <li>Soja: plantio da safra 2025/26 no Brasil é o terceiro mais rápido da história - AgRural, acessado em novembro 2, 2025, [https://agrural.com.br/soja-plantio-da-safra-2025-26-no-brasil-e-o-terceiro-mais-rapido-da-historia/](https://agrural.com.br/soja-plantio-da-safra-2025-26-no-brasil-e-o-terceiro-mais-rapido-da-historia/)</li>
+                        <li>GRÃOS - Portal Gov.br, acessado em novembro 2, 2025, [https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/safras/safra-de-graos/boletim-da-safra-de-graos/1o-levantamento-safra-2025-26/e-book\_boletim-de-safras-1o-levantamento\_2025.pdf](https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/safras/safra-de-graos/boletim-da-safra-de-graos/1o-levantamento-safra-2025-26/e-book_boletim-de-safras-1o-levantamento\_2025.pdf)</li>
+                        <li>Grãos/Deral: plantio de milho verão 2025/26 atinge 98% da área no ..., acessado em novembro 2, 2025, [https://www.broadcast.com.br/ultimas-noticias/graos-deral-plantio-de-milho-verao-2025-26-atinge-98-da-area-no-pr-soja-esta-68-semeada/](https://www.broadcast.com.br/ultimas-noticias/graos-deral-plantio-de-milho-verao-2025-26-atinge-98-da-area-no-pr-soja-esta-68-semeada/)</li>
+                        <li>Deral: plantio de milho verão 2025/26 atinge 98% da área no PR, acessado em novembro 2, 2025, [https://www.comprerural.com/deral-plantio-de-milho-verao-2025-26-atinge-98-da-area-no-pr/](https://www.comprerural.com/deral-plantio-de-milho-verao-2025-26-atinge-98-da-area-no-pr/)</li>
+                        <li>RS Safra 2025/26: soja avança lentamente - Revista Cultivar, acessado em novembro 2, 2025, [https://revistacultivar.com.br/noticias/rs-safra-2025-26-soja-avanca-lentamente](https://revistacultivar.com.br/noticias/rs-safra-2025-26-soja-avanca-lentamente)</li>
+                        <li>Emater/RS: colheita de trigo atinge 10% da área; plantio de milho está na fase final, acessado em novembro 2, 2025, [https://www.broadcast.com.br/ultimas-noticias/emater-rs-colheita-de-trigo-atinge-10-da-area-plantio-de-milho-esta-na-fase-final/](https://www.broadcast.com.br/ultimas-noticias/emater-rs-colheita-de-trigo-atinge-10-da-area-plantio-de-milho-esta-na-fase-final/)</li>
+                        <li>Inicia a colheita da cevada com bom rendimento e grãos de alta qualidade industrial, acessado em novembro 2, 2025, [https://www.agricultura.rs.gov.br/inicia-a-colheita-de-cevada-com-bom-rendimento-e-graos-de-alta-qualidade-industrial](https://www.agricultura.rs.gov.br/inicia-a-colheita-de-cevada-com-bom-rendimento-e-graos-de-alta-qualidade-industrial)</li>
+                        <li>Previsão do clima no Brasil em novembro de 2025 - Sou Agro, acessado em novembro 2, 2025, [https://souagro.net/noticia/2025/10/previsao-do-clima-no-brasil-em-novembro-de-2025/](https://souagro.net/noticia/2025/10/previsao-do-clima-no-brasil-em-novembro-de-2025/)</li>
+                        <li>Previsão do clima no Brasil em novembro de 2025 - Climatempo, acessado em novembro 2, 2025, [https://www.climatempo.com.br/noticia/primavera/previsao-do-clima-no-brasil-em-novembro-de-2025](https://www.climatempo.com.br/noticia/primavera/previsao-do-clima-no-brasil-em-novembro-de-2025)</li>
+                        <li>Novembro - Instituto Nacional de Meteorologia - INMET, acessado em novembro 2, 2025, [https://portal.inmet.gov.br/noticias/noticias?noticias=novembro](https://portal.inmet.gov.br/noticias/noticias?noticias=novembro)</li>
+                        <li>Novembro com previsão de chuva acima da média em regiões brasileiras, acessado em novembro 2, 2025, [https://www.montanhascapixabas.com.br/novembro-com-previsao-de-chuva-acima-da-media-em-regioes-brasileiras/](https://www.montanhascapixabas.com.br/novembro-com-previsao-de-chuva-acima-da-media-em-regioes-brasileiras/)</li>
+                        <li>Inmet divulga previsão com possíveis impactos nas culturas agrícolas em novembro, acessado em novembro 2, 2025, [https://afnews.com.br/inmet-divulga-previsao-com-possiveis-impactos-nas-culturas-agricolas-em-novembro/](https://afnews.com.br/inmet-divulga-previsao-com-possiveis-impactos-nas-culturas-agricolas-em-novembro/)</li>
+                        <li>Novembro: Como será o clima no Brasil?, acessado em novembro 2, 2025, [https://portal.inmet.gov.br/noticias/novembro-como-ser%C3%A1-o-clima-no-brasil-4](https://portal.inmet.gov.br/noticias/novembro-como-ser%C3%A1-o-clima-no-brasil-4)</li>
+                        <li>Safra 2025/26 terá custo mais alto - Agrolink, acessado em novembro 2, 2025, [https://www.agrolink.com.br/noticias/safra-2025-26-tera-custo-mais-alto\_503178.html](https://www.agrolink.com.br/noticias/safra-2025-26-tera-custo-mais-alto\_503178.html)</li>
+                        <li>Alta dos fertilizantes pressiona produtores na safra 2025/26 - Revista Cultivar, acessado em novembro 2, 2025, [https://revistacultivar.com.br/noticias/alta-dos-fertilizantes-pressiona-produtores-na-safra-2025-26](https://revistacultivar.com.br/noticias/alta-dos-fertilizantes-pressiona-produtores-na-safra-2025-26)</li>
+                        <li>Semanal de fertilizantes - 31/10/2025 - Portal de Relatórios - StoneX, acessado em novembro 2, 2025, [https://stonex.digital/cmdtyview/semanal-de-fertilizantes-2025-10-31](https://stonex.digital/cmdtyview/semanal-de-fertilizantes-2025-10-31)</li>
+                        <li>Mercado de defensivos agrícolas 2025: como será? - AgroReceita, acessado em novembro 2, 2025, [https://agroreceita.com.br/mercado-de-defensivos-agricolas-2025/](https://agroreceita.com.br/mercado-de-defensivos-agricolas-2025/)</li>
+                        <li>Área de soja tratada com defensivos cresce 12% com custo 4,3 ..., acessado em novembro 2, 2025, [https://agfeed.com.br/economia/area-de-soja-tratada-com-defensivos-cresce-12-com-custo-43-menor-em-2024-2025-aponta-kynetec/](https://agfeed.com.br/economia/area-de-soja-tratada-com-defensivos-cresce-12-com-custo-43-menor-em-2024-2025-aponta-kynetec/)</li>
+                        <li>Tendência de tecnologias antes da porteira para o agronegócio em 2026 - EEmovel Agro, acessado em novembro 2, 2025, [https://portal.eemovelagro.com.br/2025/10/24/tendencia-de-tecnologias-antes-da-porteira/](https://portal.eemovelagro.com.br/2025/10/24/tendencia-de-tecnologias-antes-da-porteira/)</li>
+                        <li>A longa recuperação do mercado de insumos. Vida normal só em 2025 - The AgriBiz, acessado em novembro 2, 2025, [https://www.theagribiz.com/antes-da-porteira/a-longa-recuperacao-do-mercado-de-insumos-vida-normal-so-em-2025/](https://www.theagribiz.com/antes-da-porteira/a-longa-recuperacao-do-mercado-de-insumos-vida-normal-so-em-2025/)</li>
+                    </ol>
+                </article>
+            </section>
