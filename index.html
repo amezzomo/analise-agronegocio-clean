@@ -5,359 +5,606 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análise Semanal do Agronegócio Brasileiro</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos do Boletim Agro Sul */
-        :root{
+        :root {
+            --brand: #1E3A29;
+            --brand-light: #47624F;
             --bg: #F8F6F1;
             --surface: #FFFFFF;
-            --brand: #1E3A29; /* verde institucional */
-            --brand-2: #47624F; /* secundario */
             --text: #1E1E1E;
             --muted: #5C5C5C;
             --accent: #A8D8B9;
             --border: #E3E0D9;
             --danger: #F24C4E;
         }
-        .container{max-width:1400px;margin:0 auto;padding:20px}
-        .header{background:var(--surface);padding:24px;border-radius:12px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 24px rgba(16,24,40,0.06)}
-        .header-logo{width:120px;height:auto}
-        .header-title{flex:1}
-        .h1{font-size:22px;color:var(--brand);margin:0;font-weight:800;letter-spacing:0.4px}
-        .h2{font-size:12px;color:var(--muted);margin-top:4px}
-        .card{background:var(--surface);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(16,24,40,0.04);border:1px solid var(--border)}
-        .section-title{font-size:16px;color:var(--brand);margin-bottom:8px;font-weight:700}
-        .table{width:100%;border-collapse:collapse;margin-top:12px}
-        .table th{background:#f7f6f3;padding:10px;text-align:left;color:var(--muted);font-size:13px}
-        .table td{padding:10px;border-top:1px solid var(--border)}
-        @media (max-width:900px){
-            .header{flex-direction:column;align-items:flex-start}
-            .header-logo{width:100px}
-            .h1{font-size:18px}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        /* Fim dos Estilos do Boletim Agro Sul */
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text);
+            line-height: 1.6;
         }
-        
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 24px;
+
+        /* Header */
+        .header {
+            background: var(--surface);
+            border-bottom: 3px solid var(--accent);
+            padding: 1.5rem 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        
-        @media (max-width: 1024px) {
-            .main-grid {
-                grid-template-columns: 1fr;
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .header-content h1 {
+            font-size: 1.5rem;
+            color: var(--brand);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .header-content p {
+            font-size: 0.875rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 640px) {
+            .header-container {
+                gap: 1rem;
+            }
+
+            .header-logo {
+                width: 70px;
+            }
+
+            .header-content h1 {
+                font-size: 1.25rem;
             }
         }
-        
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        /* Intro Card */
+        .intro-card {
+            background: var(--surface);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .intro-card h2 {
+            font-size: 1.25rem;
+            color: var(--brand);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .intro-card p {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .intro-card .update-note {
+            font-size: 0.85rem;
+            color: var(--danger);
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Podcast Section */
+        .podcast-section {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 58, 41, 0.15);
+        }
+
+        .podcast-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .podcast-player audio {
+            width: 100%;
+            height: 45px;
+            border-radius: 6px;
+        }
+
+        /* Grid Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Analysis Section */
+        .analysis-section {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        @media (max-width: 640px) {
+            .analysis-section {
+                padding: 1.5rem;
+            }
+        }
+
+        .analysis-section h2 {
+            font-size: 1.5rem;
+            color: var(--brand);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.75rem;
+        }
+
+        .analysis-section h3 {
+            font-size: 1.1rem;
+            color: var(--brand);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .analysis-section p {
+            margin-bottom: 1rem;
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .analysis-section ul,
+        .analysis-section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .analysis-section li {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .analysis-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .analysis-section th {
+            background-color: #f7f6f3;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--brand);
+            border: 1px solid var(--border);
+        }
+
+        .analysis-section td {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        .analysis-section tr:nth-child(even) {
+            background-color: #fafaf8;
+        }
+
+        .analysis-section hr {
+            margin: 2rem 0;
+            border: none;
+            border-top: 1px solid var(--border);
+        }
+
+        /* KPI Sidebar */
+        .kpi-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
         .kpi-card {
             background: var(--surface);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-            border-left: 4px solid var(--brand);
-            box-shadow: 0 4px 12px rgba(16,24,40,0.04);
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 8px;
+            padding: 1.25rem;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
         }
-        
+
         .kpi-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(16,24,40,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
-        
+
         .kpi-label {
-            font-size: 12px;
+            font-size: 0.75rem;
             color: var(--muted);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 0.5rem;
         }
-        
+
         .kpi-value {
-            font-size: 24px;
+            font-size: 1.75rem;
             color: var(--brand);
-            font-weight: 800;
-            margin-bottom: 4px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
         }
-        
+
         .kpi-unit {
-            font-size: 11px;
+            font-size: 0.8rem;
             color: var(--muted);
+            margin-bottom: 0.75rem;
         }
-        
+
         .kpi-trend {
-            font-size: 12px;
-            margin-top: 6px;
-            padding-top: 6px;
+            font-size: 0.8rem;
+            padding-top: 0.75rem;
             border-top: 1px solid var(--border);
+            margin-top: 0.75rem;
         }
-        
+
         .trend-up {
             color: #4CAF50;
+            font-weight: 600;
         }
-        
+
         .trend-down {
             color: var(--danger);
+            font-weight: 600;
         }
-        
+
         .trend-stable {
             color: #F7C548;
+            font-weight: 600;
         }
-        
-        .podcast-section {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 18px;
-            box-shadow: 0 6px 20px rgba(16,24,40,0.04);
-            border: 1px solid var(--border);
-            margin-bottom: 24px;
-        }
-        
-        .podcast-title {
-            font-size: 14px;
+
+        .kpi-sidebar-title {
+            font-size: 1rem;
             color: var(--brand);
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
         }
-        
-        .podcast-player {
-            width: 100%;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
-            padding: 12px;
-        }
-        
-        .podcast-player audio {
-            width: 100%;
-            height: 40px;
-        }
-        
-        audio::-webkit-media-controls-panel {
-            background-color: var(--surface);
-        }
-        
-        /* Estilos para o Conteúdo da Análise */
-        .analysis-content h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 1.2rem;
-            margin-bottom: 0.6rem;
-            color: var(--brand);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 0.25rem;
-        }
-        
-        .analysis-content h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-top: 0.8rem;
-            margin-bottom: 0.4rem;
-            color: var(--brand);
-        }
-        
-        .analysis-content p, .analysis-content li {
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-        
-        .analysis-content ul, .analysis-content ol {
-            margin-left: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
-        
-        .analysis-content ul {
-            list-style-type: disc;
-        }
-        
-        .analysis-content ol {
-            list-style-type: decimal;
-        }
-        
-        .analysis-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 0.8rem;
-            font-size: 13px;
-        }
-        
-        .analysis-content th, .analysis-content td {
-            border: 1px solid var(--border);
-            padding: 8px;
-            text-align: left;
-        }
-        
-        .analysis-content th {
-            background-color: #f7f6f3;
-            font-weight: bold;
-        }
-        
-        .sidebar-sticky {
-            position: sticky;
-            top: 20px;
-        }
-        
+
         @media (max-width: 1024px) {
-            .sidebar-sticky {
-                position: static;
+            .kpi-sidebar {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .kpi-sidebar-title {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-sidebar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 640px) {
+            .analysis-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .analysis-section h3 {
+                font-size: 1rem;
+            }
+
+            .kpi-value {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
-<body class="text-gray-800">
-
-    <header class="header" role="banner">
-        <img src="logo.png" alt="Boletim Agro Sul - logo" class="header-logo" />
-        <div class="header-title">
-            <h1 class="h1">Análise Semanal do Agronegócio Brasileiro</h1>
-            <p class="h2">Atualizado em 09 de Novembro de 2025</p>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <img src="logo.png" alt="Boletim Agro Sul - logo" class="header-logo" />
+            <div class="header-content">
+                <h1>Análise Semanal do Agronegócio Brasileiro</h1>
+                <p>Atualizado em 09 de Novembro de 2025</p>
+            </div>
         </div>
     </header>
 
-    <main class="container">
-        <!-- Mensagem de Boas-Vindas e Propósito -->
-        <section class="mb-6 card p-5 border-l-4 border-l-[var(--accent)]">
-            <h2 class="text-lg font-bold text-[var(--brand)] mb-2">Bem-vindo(a) à Análise Semanal do Agronegócio Brasileiro!</h2>
-            <p class="text-sm text-gray-700">Esta página é sua fonte de informação atualizada sobre os principais movimentos do setor. Aqui você encontrará análise completa, infográfico visual com KPIs e resumo em podcast.</p>
-            <p class="text-xs font-semibold text-[var(--danger)] mt-2">O conteúdo é atualizado toda segunda-feira.</p>
-        </section>
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Intro Card -->
+        <div class="intro-card">
+            <h2>📌 Bem-vindo(a)</h2>
+            <p>Esta análise semanal traz os principais movimentos do agronegócio brasileiro, com foco especial nas regiões de Rio Grande do Sul e Paraná. Você encontrará análise completa, infográfico visual com KPIs e resumo em podcast.</p>
+            <p class="update-note">✓ Conteúdo atualizado toda segunda-feira</p>
+        </div>
 
-        <!-- Grid Principal: Análise + Sidebar de KPIs -->
-        <div class="main-grid">
-            
-            <!-- Coluna Principal para a Análise -->
-            <section id="analysis-section" class="card p-6 analysis-content">
-                
-                <!-- Podcast Player -->
-                <div class="podcast-section">
-                    <div class="podcast-title">
-                        🎧 Resumo em Podcast (7-8 min)
-                    </div>
-                    <div class="podcast-player">
-                        <audio controls>
-                            <source src="podcast_semanal.mp3" type="audio/mpeg">
-                            Seu navegador não suporta o elemento de áudio.
-                        </audio>
-                    </div>
-                </div>
+        <!-- Podcast Section -->
+        <div class="podcast-section">
+            <div class="podcast-header">
+                🎧 Resumo em Podcast (7-8 min)
+            </div>
+            <div class="podcast-player">
+                <audio controls>
+                    <source src="podcast_semanal.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
+        </div>
 
-                <!-- Análise Completa -->
-                <h2 class="text-2xl font-bold mb-4 text-[var(--brand)]">Análise Completa</h2>
-                
-                <article>
-                    <h2>1.0 Panorama Macroeconômico e Desempenho Exportador: A Tensão Entre Otimismo e Cautela</h2>
-                    <p>O cenário para o agronegócio brasileiro em 2025 é definido por uma dualidade marcante: de um lado, projeções macroeconômicas robustas que sinalizam uma forte recuperação setorial; de outro, um ambiente operacional repleto de desafios financeiros, geopolíticos e de custos que exigem uma gestão de risco apurada. A análise desta semana aprofunda essa tensão, justapondo o otimismo dos indicadores de crescimento com as advertências de cautela emitidas por especialistas do setor, fornecendo uma visão equilibrada do complexo terreno que os produtores e executivos devem navegar. A aparente contradição entre as projeções de receita recorde e as advertências sobre margens espremidas sugere que o setor pode estar caminhando para um período de "prosperidade sem lucro".</p>
-                    
-                    <h3>1.1 Projeções para 2025: A Recuperação do PIB do Agronegócio Diante de Desafios Conjunturais</h3>
-                    <p>A principal notícia que ancora as expectativas para o próximo ano é a projeção de um crescimento de 5% no Produto Interno Bruto (PIB) do agronegócio, segundo estimativas da Confederação da Agricultura e Pecuária do Brasil (CNA). Este número representa uma recuperação expressiva após a retração de 2,5% enfrentada em 2024, um ano marcado por quebras de safra nas culturas de soja e milho, que são pilares da produção nacional. O Valor Bruto da Produção (VBP) agropecuário deve crescer aproximadamente 7% em 2025, alcançando a marca de R$ 1,43 trilhão. No entanto, tanto a CNA quanto analistas de mercado alertam que este crescimento não ocorrerá em um vácuo. O cenário é desafiador e impõe riscos que podem moderar o otimismo inicial, como um ambiente externo complexo, incertezas na política fiscal doméstica, volatilidade cambial, pressões inflacionárias e a manutenção de uma taxa Selic elevada. Estes fatores convergem para encarecer o crédito rural e dificultar o planejamento financeiro dos produtores.</p>
-                    
-                    <h3>1.2 Balança Comercial: Desempenho Robusto das Exportações e a Dinâmica dos Mercados Internacionais</h3>
-                    <p>O desempenho exportador continua a ser um pilar de sustentação para o setor. Nos primeiros oito meses de 2025, as exportações do agronegócio brasileiro atingiram um recorde de US$ 111,69 bilhões. A China continua sendo o principal destino (35% da receita), mas o crescimento das compras chinesas foi modesto (1,3%). Em contraste, os Estados Unidos apresentaram um crescimento notável de 14,8% na receita acumulada, e a União Europeia registrou um crescimento sólido de 5,8%. O contexto geopolítico (tensões EUA/China, conflitos no Oriente Médio) adiciona outra camada de complexidade, elevando a volatilidade nos preços de insumos e fretes.</p>
-                    
-                    <hr>
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Analysis Section -->
+            <section class="analysis-section">
+                <h2>📰 Análise Completa</h2>
 
-                    <h2>2.0 A Safra 2025/26 em Foco: Progresso do Plantio e Condições das Lavouras</h2>
-                    <p>A análise do avanço da safra 2025/26 revela um quadro de contrastes regionais significativos. O panorama nacional do plantio de soja na última semana de outubro indica um ritmo que, apesar do forte avanço semanal, está ligeiramente atrasado em relação às médias históricas (34,4% semeado vs. média de 42,5%). Essa desaceleração aumenta a vulnerabilidade da safra a eventos climáticos adversos em novembro. Para o milho verão, a situação é mais positiva, com 40% da área plantada, superando a média histórica.</p>
-                    
-                    <h3>2.1 Análise Regional Detalhada: Os Dois Extremos do Sul e o Avanço no Centro-Oeste</h3>
-                    <p>A heterogeneidade do avanço do plantio fica evidente na análise regional: Mato Grosso lidera com 72,7% de sua área de soja semeada. O Paraná está acelerado (68% da soja semeada e 98% do milho verão). Em forte contraste, o Rio Grande do Sul está preocupante, com apenas 5% da área de soja plantada. O lento progresso da soja no RS é atribuído a uma combinação de fatores: irregularidade das chuvas, restrições no acesso ao crédito rural e uma decisão estratégica de adiar a semeadura para mitigar os riscos de déficit hídrico. Essa divergência drástica aponta para uma temporada "bifurcada".</p>
-                    
-                    <h3>2.2 Outras Culturas de Relevância: Finalização da Safra de Inverno</h3>
-                    <p>A colheita das culturas de inverno avança em bom ritmo. No Paraná, a colheita de trigo atingiu 83% da área, e no Rio Grande do Sul, o tempo seco permitiu que a colheita avançasse para 27% da área, com produtividades dentro ou acima do esperado.</p>
-                    
-                    <hr>
+                <h3>Manchete da Semana: A Pior Crise de Crédito Rural Desde o Plano Real Trava o Início da Safra no RS</h3>
+                <p>A manchete desta semana é o aprofundamento da crise de crédito no campo, classificada pela Federação da Agricultura do Estado do Rio Grande do Sul (Farsul) como a "maior crise de crédito rural desde o Plano Real". O levantamento da Farsul, divulgado no final de outubro, revela uma retração drástica nos recursos para a safra 2025/26: em nível nacional, o custeio caiu 23% e os investimentos despencaram 44% no primeiro trimestre do ciclo (julho a setembro).</p>
+                <p>O Rio Grande do Sul reflete essa realidade de forma ainda mais aguda, com quedas de 25% no custeio e 39% nos investimentos. Este cenário é agravado por uma inadimplência recorde, que atingiu 5,14% em julho (a maior da série histórica) e 9,35% no crédito livre.</p>
+                <p>O impacto dessa "tempestade perfeita" de juros altos, inadimplência e restrição de capital é visto diretamente no campo. Em Brasília, a Frente Parlamentar da Agropecuária (FPA) pressiona o governo pela liberação de R$ 12 bilhões em crédito emergencial (MP 1.314) que continua inacessível devido a entraves burocráticos.</p>
 
-                    <h2>3.0 Fatores Críticos: Clima e Custos de Produção</h2>
-                    <p>A definição do sucesso da safra 2025/26 dependerá fundamentalmente da evolução do clima sob a influência do fenômeno La Niña e da gestão dos custos de produção, que se confirmam mais elevados.</p>
-                    
-                    <h3>3.1 Previsão Climática para Novembro: A Incerteza Gerada pelo La Niña</h3>
-                    <p>O La Niña está ativo. As previsões para novembro apresentam uma divergência crítica: a Climatempo aponta para chuvas acima da média no Centro-Oeste e Paraná, enquanto o INMET indica chuvas abaixo da média para o Sul, Sudeste e a maior parte do Centro-Oeste. Essa divergência entre duas fontes técnicas credíveis representa o maior risco operacional para o setor no curto prazo.</p>
-                    
-                    <h3>3.2 Custos de Produção: A Pressão Sobre a Margem</h3>
-                    <p>A safra 2025/26 terá um custo de produção mais elevado. A relação de troca entre soja e MAP atingiu o pior nível em 15 anos (44,5 sacas de soja para a compra de uma tonelada do insumo). O mercado de defensivos químicos deve apresentar um crescimento modesto (3% a 6%), mas o segmento de bioinsumos continua sua trajetória de crescimento exponencial (expansão de 13% para 2025). A combinação de custos elevados e crédito restrito cria uma "pressão estratégica" sobre o produtor, que pode ser forçado a tomar decisões agronômicas subótimas.</p>
-                    
-                    <hr>
+                <hr>
 
-                    <h2>4.0 Síntese Estratégica e Perspectivas</h2>
-                    <p>A análise consolidada revela um agronegócio brasileiro posicionado sobre uma base de grande potencial produtivo, mas confrontado por um ambiente operacional de alto risco. A capacidade de navegar a incerteza climática e a severa pressão de custos definirá o resultado da safra 2025/26. Os principais riscos são a volatilidade climática, a compressão de margens e os gargalos logísticos. As principais oportunidades são a demanda global sólida, o câmbio competitivo e a adaptação tecnológica (bioinsumos).</p>
-                    
-                    <p><strong>Pontos de Monitoramento para as Próximas Semanas:</strong></p>
-                    <ul>
-                        <li>Distribuição das Chuvas: Acompanhamento diário e semanal dos padrões de precipitação.</li>
-                        <li>Progresso do Plantio no Sul: A capacidade do Rio Grande do Sul de acelerar e recuperar o atraso no plantio da soja.</li>
-                        <li>Tendências de Preços de Fertilizantes: Monitorização contínua dos preços CFR para ureia, MAP e cloreto de potássio.</li>
-                        <li>Liquidez do Mercado de Crédito: Quaisquer anúncios ou mudanças relacionadas ao Plano Safra.</li>
-                    </ul>
-                </article>
+                <h3>Análise dos Especialistas: O Paradoxo de 2025</h3>
+                <p>As análises de Kellen Severo focam no grande paradoxo que definirá o próximo ano: a projeção de um 2025 recorde contra a realidade de um 2024/2025 operacionalmente arriscado.</p>
+                <p><strong>O lado otimista:</strong> A Confederação da Agricultura e Pecuária do Brasil (CNA) estima um crescimento de até 5% no PIB do Agronegócio em 2025, impulsionado por uma expectativa de safra recorde.</p>
+                <p><strong>Os riscos imediatos:</strong></p>
+                <ul>
+                    <li><strong>A Realidade do Crédito:</strong> As projeções de crescimento esbarram na preocupação do setor com a alta do dólar, os juros elevados (Selic) e a dificuldade de acesso ao crédito rural.</li>
+                    <li><strong>Risco Geopolítico e Custo:</strong> A escalada de conflitos no Oriente Médio pode levar o barril do petróleo a mais de 100 dólares, impactando diretamente o preço do diesel, o frete e os custos dos insumos.</li>
+                    <li><strong>Relações Internacionais Complexas:</strong> A China avança em seu plano de autossuficiência alimentar, enquanto a nova Lei Antidesmatamento da União Europeia apresenta-se como barreira regulatória e oportunidade.</li>
+                </ul>
+
+                <hr>
+
+                <h3>Termômetro dos Fertilizantes: Custo Elevado para 2025/26</h3>
+                <p>A análise de Jeferson Souza (Agrinvest) confirma que a safra 2025/26 será "inevitavelmente mais cara". A maior preocupação é com o milho safrinha, que ainda tem cerca de 70% dos fertilizantes por comprar.</p>
+                <p>O cenário de custos é alarmante: o Potássio (KCl) está sendo negociado entre US$ 90 e US$ 100 por tonelada acima dos níveis de outubro do ano passado, e os Fosfatados (MAP) seguem firmes.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nutriente (Produto)</th>
+                            <th>Preço (USD/tonelada - CFR Brasil)</th>
+                            <th>Tendência (Início de Novembro)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nitrogênio (Uréia)</td>
+                            <td>~$425</td>
+                            <td>ALTA</td>
+                        </tr>
+                        <tr>
+                            <td>Fósforo (MAP)</td>
+                            <td>~$715</td>
+                            <td>ESTÁVEL</td>
+                        </tr>
+                        <tr>
+                            <td>Potássio (KCl)</td>
+                            <td>~$360-365</td>
+                            <td>ESTÁVEL</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr>
+
+                <h3>Radar dos Defensivos: Crescimento Modesto e Explosão dos Bioinsumos</h3>
+                <p>O mercado de defensivos químicos apresenta um cenário paradoxal. Embora a área tratada (PAT) tenha crescido (+12% na soja), o faturamento do setor caiu (-4,3% na soja, -7% no milho 2ª safra, -16% no milho verão).</p>
+                <p>Para 2025, a projeção do setor é de um crescimento modesto, entre 3% e 6%. Em contrapartida, o segmento de <strong>bioinsumos</strong> vive uma explosão, com projeções de crescimento de 13% a mais de 30%.</p>
+
+                <hr>
+
+                <h3>Foco no Sul: O Contraste Extremo entre o Atraso Gaúcho e o Avanço Paranaense</h3>
+                <p>A situação da Região Sul é a que melhor ilustra a safra "desigual" do Brasil. Os dois estados vizinhos vivem realidades opostas neste início de novembro.</p>
+
+                <h3>Paraná: Plantio Acelerado</h3>
+                <p>O Paraná avança em ritmo acelerado. O último relatório do DERAL indicava que <strong>68% da área de soja</strong> já estava semeada, com fontes de mercado apontando um número próximo de <strong>79%</strong> na primeira semana de novembro. O plantio do milho verão está tecnicamente finalizado, com <strong>98% da área</strong> coberta. As condições das lavouras são majoritariamente (96%) consideradas "boas".</p>
+
+                <h3>Rio Grande do Sul: Atraso Crítico e Crise no Arroz</h3>
+                <p>O cenário gaúcho é o mais preocupante do país. O plantio da soja está severamente atrasado: dados da Emater/RS-Ascar do final de outubro apontavam apenas <strong>5%</strong> da área semeada. O boletim mais recente da Conab (01/nov) elevou esse número para <strong>9%</strong>.</p>
+                <p>Os motivos para o ritmo lento são claros e interligados:</p>
+                <ul>
+                    <li><strong>Crise de Crédito:</strong> A principal causa. Produtores estão descapitalizados e com acesso restrito a financiamento.</li>
+                    <li><strong>Estratégia do Produtor:</strong> Receio de períodos secos em novembro e dezembro, levando a um adiamento deliberado da semeadura.</li>
+                    <li><strong>Clima e Prioridades:</strong> Irregularidade das chuvas em certas zonas e a priorização do plantio do milho (que já atingiu 80% da área).</li>
+                </ul>
+                <p>Para agravar a pressão financeira, o setor de <strong>arroz</strong> enfrenta um colapso. Os preços da saca do produto em casca atingiram o menor nível em 14 anos, sendo negociados a <strong>R$ 59,17</strong> – muito abaixo do custo de produção, estimado entre R$ 75 e R$ 90.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>Cultura</th>
+                            <th>% Plantada (Início Nov)</th>
+                            <th>Análise de Ritmo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Paraná</strong></td>
+                            <td>Soja</td>
+                            <td><strong>68% - 79%</strong></td>
+                            <td>Acelerado, em fase final</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paraná</strong></td>
+                            <td>Milho</td>
+                            <td><strong>98%</strong></td>
+                            <td>Concluído</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rio Grande do Sul</strong></td>
+                            <td>Soja</td>
+                            <td><strong>5% - 9%</strong></td>
+                            <td><strong>Atraso Crítico</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rio Grande do Sul</strong></td>
+                            <td>Milho</td>
+                            <td><strong>80%</strong></td>
+                            <td>Avançado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rio Grande do Sul</strong></td>
+                            <td>Arroz</td>
+                            <td><strong>57%</strong></td>
+                            <td><strong>Crise de Preços</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
 
-            <!-- Sidebar de KPIs -->
-            <aside class="sidebar-sticky">
-                <h3 class="section-title mb-4">📊 KPIs da Semana</h3>
-                
-                <!-- KPI 1: Crise de Crédito -->
+            <!-- KPI Sidebar -->
+            <aside class="kpi-sidebar">
+                <h3 class="kpi-sidebar-title">📊 KPIs da Semana</h3>
+
                 <div class="kpi-card">
-                    <div class="kpi-label">💰 Crise de Crédito</div>
-                    <div class="kpi-value">-15%</div>
-                    <div class="kpi-unit">Redução no acesso</div>
-                    <div class="kpi-trend trend-down">↓ Restrição severa</div>
+                    <div class="kpi-label">🌾 Plantio Soja (Nacional)</div>
+                    <div class="kpi-value">~62%</div>
+                    <div class="kpi-unit">da área prevista</div>
+                    <div class="kpi-trend trend-up">↑ Plantio mais rápido da história</div>
                 </div>
 
-                <!-- KPI 2: Plantio de Soja -->
                 <div class="kpi-card">
-                    <div class="kpi-label">🌱 Plantio de Soja</div>
-                    <div class="kpi-value">34,4%</div>
+                    <div class="kpi-label">💰 Crise de Crédito (RS)</div>
+                    <div class="kpi-value">-25%</div>
+                    <div class="kpi-unit">Redução no custeio</div>
+                    <div class="kpi-trend trend-down">↓ Maior desde o Plano Real</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">🌱 Plantio Soja (RS)</div>
+                    <div class="kpi-value">9%</div>
                     <div class="kpi-unit">Área semeada</div>
-                    <div class="kpi-trend trend-stable">⚠ Atrasado vs. média</div>
+                    <div class="kpi-trend trend-down">↓ Atraso crítico</div>
                 </div>
 
-                <!-- KPI 3: Fertilizantes -->
                 <div class="kpi-card">
-                    <div class="kpi-label">📈 Custo Fertilizantes</div>
-                    <div class="kpi-value">+22%</div>
-                    <div class="kpi-unit">Acima de 2024</div>
-                    <div class="kpi-trend trend-down">↑ Pressão de custos</div>
+                    <div class="kpi-label">🌱 Plantio Soja (PR)</div>
+                    <div class="kpi-value">>90%</div>
+                    <div class="kpi-unit">Área semeada</div>
+                    <div class="kpi-trend trend-up">↑ Finalizado</div>
                 </div>
 
-                <!-- KPI 4: Mercado Defensivo -->
                 <div class="kpi-card">
-                    <div class="kpi-label">🛡️ Mercado Defensivo</div>
-                    <div class="kpi-value">+4,5%</div>
-                    <div class="kpi-unit">Crescimento esperado</div>
-                    <div class="kpi-trend trend-up">↑ Crescimento moderado</div>
+                    <div class="kpi-label">🌡️ Uréia CFR Brasil</div>
+                    <div class="kpi-value">$425</div>
+                    <div class="kpi-unit">USD/tonelada</div>
+                    <div class="kpi-trend trend-up">↑ Ligeira alta</div>
                 </div>
 
-                <!-- KPI 5: Preços Regionais Soja -->
                 <div class="kpi-card">
-                    <div class="kpi-label">🌾 Preço Soja (RS/PR)</div>
-                    <div class="kpi-value">R$ 62,50</div>
-                    <div class="kpi-unit">Média regional</div>
+                    <div class="kpi-label">🌡️ MAP CFR Brasil</div>
+                    <div class="kpi-value">$715</div>
+                    <div class="kpi-unit">USD/tonelada</div>
                     <div class="kpi-trend trend-stable">→ Estável</div>
                 </div>
 
-                <!-- KPI 6: PIB Agronegócio -->
                 <div class="kpi-card">
-                    <div class="kpi-label">📊 PIB Agronegócio 2025</div>
-                    <div class="kpi-value">+5%</div>
-                    <div class="kpi-unit">Crescimento projetado</div>
-                    <div class="kpi-trend trend-up">↑ Recuperação</div>
+                    <div class="kpi-label">🌡️ KCl CFR Brasil</div>
+                    <div class="kpi-value">$360</div>
+                    <div class="kpi-unit">USD/tonelada</div>
+                    <div class="kpi-trend trend-stable">→ Estável</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">🛡️ Defensivos</div>
+                    <div class="kpi-value">+3,4%</div>
+                    <div class="kpi-unit">Crescimento área tratada</div>
+                    <div class="kpi-trend trend-up">↑ Projeção Sindiveg</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">🌾 Preço Arroz (RS)</div>
+                    <div class="kpi-value">R$ 59,17</div>
+                    <div class="kpi-unit">Saca em casca</div>
+                    <div class="kpi-trend trend-down">↓ Menor em 14 anos</div>
                 </div>
             </aside>
         </div>
-    </main>
+    </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Análise Semanal do Agronegócio Brasileiro | Atualizado em 09 de Novembro de 2025 | Foco em Rio Grande do Sul e Paraná</p>
+    </footer>
 </body>
 </html>
 
